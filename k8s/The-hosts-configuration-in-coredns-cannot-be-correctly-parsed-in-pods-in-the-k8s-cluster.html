@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>1.pod采用组件挂载cfs报错 · 运维问题集锦</title>
+        <title>1.k8s集群内pod内无法正确解析coredns中的hosts配置 · 运维问题集锦</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -91,10 +91,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../linux/1.md" />
     
-    
-    <link rel="prev" href="../" />
+    <link rel="prev" href="../linux/1.md" />
     
 
     
@@ -187,9 +185,9 @@
         
         
     
-        <li class="chapter active" data-level="2.1" data-path="Pod-uses-components-to-mount-cfs-to-report-errors.html">
+        <li class="chapter " data-level="2.1" data-path="../tke/Pod-uses-components-to-mount-cfs-to-report-errors.html">
             
-                <a href="Pod-uses-components-to-mount-cfs-to-report-errors.html">
+                <a href="../tke/Pod-uses-components-to-mount-cfs-to-report-errors.html">
             
                     
                     1.pod采用组件挂载cfs报错
@@ -227,9 +225,9 @@
         
         
     
-        <li class="chapter " data-level="4.1" data-path="../k8s/The-hosts-configuration-in-coredns-cannot-be-correctly-parsed-in-pods-in-the-k8s-cluster.html">
+        <li class="chapter active" data-level="4.1" data-path="The-hosts-configuration-in-coredns-cannot-be-correctly-parsed-in-pods-in-the-k8s-cluster.html">
             
-                <a href="../k8s/The-hosts-configuration-in-coredns-cannot-be-correctly-parsed-in-pods-in-the-k8s-cluster.html">
+                <a href="The-hosts-configuration-in-coredns-cannot-be-correctly-parsed-in-pods-in-the-k8s-cluster.html">
             
                     
                     1.k8s集群内pod内无法正确解析coredns中的hosts配置
@@ -270,7 +268,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >1.pod采用组件挂载cfs报错</a>
+        <a href=".." >1.k8s集群内pod内无法正确解析coredns中的hosts配置</a>
     </h1>
 </div>
 
@@ -285,18 +283,24 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="pod&#x91C7;&#x7528;&#x7EC4;&#x4EF6;&#x6302;&#x8F7D;cfs&#x62A5;&#x9519;">pod&#x91C7;&#x7528;&#x7EC4;&#x4EF6;&#x6302;&#x8F7D;cfs&#x62A5;&#x9519;</h1>
+                                <h1 id="k8s&#x96C6;&#x7FA4;&#x5185;pod&#x5185;&#x65E0;&#x6CD5;&#x6B63;&#x786E;&#x89E3;&#x6790;coredns&#x4E2D;&#x7684;hosts&#x914D;&#x7F6E;">k8s&#x96C6;&#x7FA4;&#x5185;pod&#x5185;&#x65E0;&#x6CD5;&#x6B63;&#x786E;&#x89E3;&#x6790;coredns&#x4E2D;&#x7684;hosts&#x914D;&#x7F6E;</h1>
 <h2 id="&#x95EE;&#x9898;&#x73B0;&#x8C61;">&#x95EE;&#x9898;&#x73B0;&#x8C61;</h2>
-<p>pod&#x901A;&#x8FC7;cfs&#x7EC4;&#x4EF6;&#x6302;&#x8F7D;cfs&#x4E00;&#x76F4;pending&#xFF0C;pod&#x8D77;&#x4E0D;&#x6765;&#xFF0C;&#x67E5;&#x770B;&#x4E8B;&#x4EF6;&#x62A5;&#x9519;MountVolume.MountDevice failed for volume &quot;xxxxxxx&quot; : kubernetes.io/csi: attacher.MountDevice failed to create newCsiDriverClient: driver name com.tencent.cloud.csi.cfs not found in the list of registered CSI drivers&#x3002;</p>
+<p>k8s&#x7684;coredns&#x4E2D;&#x8FDB;&#x884C;&#x4E86;hosts&#x7684;&#x5168;&#x5C40;&#x57DF;&#x540D;&#x89E3;&#x6790;&#x914D;&#x7F6E;&#xFF0C;&#x4F46;&#x662F;&#x5728;&#x5BB9;&#x5668;&#x5185;&#x89E3;&#x6790;&#x5BF9;&#x5E94;&#x7684;&#x57DF;&#x540D;&#x53D1;&#x73B0;&#x8D70;&#x7684;&#x662F;k8s&#x96C6;&#x7FA4;&#x5185;&#x90E8;&#x7684;svc.cluster.local&#x57DF;&#x540D;&#xFF0C;&#x5E76;&#x6CA1;&#x6709;&#x89E3;&#x6790;&#x5230;&#x914D;&#x7F6E;&#x7684;hosts&#x4E0A;</p>
+<p><img src="image/Snipaste_2021-10-20_23-40-25.JPG" alt="upload-image"> </p>
+<p><img src="image/Snipaste_2021-10-20_23-41-35.JPG" alt="upload-image"> </p>
 <h2 id="&#x6392;&#x67E5;&#x601D;&#x8DEF;">&#x6392;&#x67E5;&#x601D;&#x8DEF;</h2>
-<ol>
-<li>&#x6839;&#x636E;&#x4E8B;&#x4EF6;&#x65E5;&#x5FD7;&#x62A5;&#x9519;&#x662F;&#x56E0;&#x4E3A;cfs&#x7EC4;&#x4EF6;agent&#x5F02;&#x5E38;&#x5BFC;&#x81F4;&#xFF0C;&#x68C0;&#x67E5;cfs&#x7EC4;&#x4EF6;&#x7684;agent&#x662F;&#x6B63;&#x5E38;&#x8FD0;&#x884C;&#x3002;</li>
-<li>&#x67E5;&#x770B;&#x4E8B;&#x4EF6;&#x53D1;&#x73B0;&#x6709;&#x4E00;&#x6761;&#x65E5;&#x5FD7;Starting pod sandbox eks-xxxxx&#xFF0C;&#x8FD9;&#x4E2A;&#x8BF4;&#x660E;&#x662F;&#x8C03;&#x5EA6;&#x5230;&#x865A;&#x62DF;&#x8282;&#x70B9;&#x7684;&#xFF0C;&#x4F46;&#x662F;cfs&#x7EC4;&#x4EF6;&#x7684;agent&#x662F;csi-nodeplugin-cfsplugin(kube-system)&#xFF0C;&#x8FD9;&#x4E2A;&#x8D1F;&#x8F7D;&#x662F;DaemonSet&#x7C7B;&#x578B;&#xFF0C;&#x865A;&#x62DF;&#x8282;&#x70B9;&#x662F;&#x65E0;&#x6CD5;&#x8FD0;&#x884C;DaemonSet&#xFF0C;&#x6240;&#x4EE5;&#x7EC4;&#x4EF6;&#x7684;agent&#x65E0;&#x6CD5;&#x5728;&#x865A;&#x62DF;&#x8282;&#x70B9;&#x4E0A;&#x8FD0;&#x884C;&#x3002;&#x5BFC;&#x81F4;pod&#x6302;&#x8F7D;cfs&#x5F02;&#x5E38;&#x3002;</li>
-</ol>
+<p>&#x8FD9;&#x8FB9;&#x9996;&#x5148;&#x6D4B;&#x8BD5;&#x4E86;&#x4E0B;&#x5728;&#x8282;&#x70B9;&#x4E0A;&#x914D;&#x7F6E;&#x4E86;hosts&#x662F;&#x80FD;&#x6B63;&#x5E38;&#x89E3;&#x6790;&#xFF0C;&#x5E76;&#x4E14;&#x5C06;pod&#x7684;dns&#x7B56;&#x7565;&#x6539;&#x6210;default&#x4E0D;&#x8D70;coredns&#x4E5F;&#x662F;&#x80FD;&#x6B63;&#x5E38;&#x89E3;&#x6790;&#xFF0C;&#x90A3;&#x4E48;&#x4E3A;&#x4EC0;&#x4E48;&#x7ECF;&#x8FC7;coredns&#x5C31;&#x4E0D;&#x884C;&#x4E86;&#x5462;&#xFF1F;&#x8FD9;&#x91CC;&#x770B;&#x4E86;&#x4E0B;coredns&#x4E2D;&#x914D;&#x7F6E;hosts&#x7684;&#x65B9;&#x5F0F;&#x4E5F;&#x6CA1;&#x6709;&#x95EE;&#x9898;&#x3002;</p>
+<p>&#x8FD9;&#x91CC;&#x67E5;&#x770B;&#x4E86;&#x4E0B;coredns&#x7684;&#x5B98;&#x65B9;&#x6587;&#x6863;hosts&#x914D;&#x7F6E;<a href="https://coredns.io/plugins/hosts/#description" target="_blank">https://coredns.io/plugins/hosts/#description</a>&#xFF0C;&#x53D1;&#x73B0;&#x6211;&#x914D;&#x7F6E;&#x7684;hosts&#x63D2;&#x4EF6;&#x4E2D;&#x6CA1;&#x6709;&#x8BBE;&#x7F6E;fallthrough&#x8FD9;&#x4E2A;&#x5B57;&#x6BB5;&#xFF0C;&#x6839;&#x636E;&#x6587;&#x6863;&#x7684;&#x8BF4;&#x660E;</p>
+<p>fallthrough If zone matches and no record can be generated, pass request to the next plugin. If [ZONES&#x2026;] is omitted, then fallthrough happens for all zones for which the plugin is authoritative. If specific zones are listed (for example and ), then only queries for those zones will be subject to fallthrough.in-addr.arpaip6.arpa</p>
+<p>&#x5982;&#x679C;&#x533A;&#x57DF;&#x5339;&#x914D;&#x5E76;&#x4E14;&#x65E0;&#x6CD5;&#x751F;&#x6210;&#x8BB0;&#x5F55;&#xFF0C;fallthrough&#x5219;&#x5C06;&#x8BF7;&#x6C42;&#x4F20;&#x9012;&#x7ED9;&#x4E0B;&#x4E00;&#x4E2A;&#x63D2;&#x4EF6;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x8BBE;&#x7F6E;&#xFF0C;&#x5219;&#x4E0D;&#x4F1A;&#x7EE7;&#x7EED;&#x627E;&#x5176;&#x4ED6;&#x63D2;&#x4EF6;&#x8FDB;&#x884C;&#x89E3;&#x6790;&#x3002;</p>
+<p>If you want to pass the request to the rest of the plugin chain if there is no match in the hosts plugin, you must specify the option.fallthrough</p>
+<p>&#x5982;&#x679C;&#x5728;hosts&#x63D2;&#x4EF6;&#x4E2D;&#x6CA1;&#x6709;&#x5339;&#x914D;&#x9879;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x8981;&#x5C06;&#x8BF7;&#x6C42;&#x4F20;&#x9012;&#x7ED9;&#x63D2;&#x4EF6;&#x94FE;&#x7684;&#x5176;&#x4F59;&#x90E8;&#x5206;&#xFF0C;&#x5219;&#x5FC5;&#x987B;&#x6307;&#x5B9A;fallthrough&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x5927;&#x6982;&#x5C31;&#x662F;fallthrough&#x6CA1;&#x6709;&#x8BBE;&#x7F6E;&#x5BFC;&#x81F4;&#x7684;&#x3002;</p>
 <h2 id="&#x89E3;&#x51B3;&#x65B9;&#x6848;">&#x89E3;&#x51B3;&#x65B9;&#x6848;</h2>
-<p>&#x5C06;pod&#x8C03;&#x5EA6;&#x5230;&#x6B63;&#x5E38;&#x8282;&#x70B9;&#x4E0A;&#xFF0C;&#x4E0D;&#x8981;&#x8C03;&#x5EA6;&#x5230;&#x865A;&#x62DF;&#x8282;&#x70B9;&#x4E0A;&#xFF0C;&#x6216;&#x8005;&#x91C7;&#x7528;nfs&#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x6302;&#x8F7D;&#x3002; </p>
+<p>coredns&#x7684;hosts&#x63D2;&#x4EF6;&#x4E2D;&#x52A0;&#x4E0A;fallthrough&#x914D;&#x7F6E;&#xFF0C;&#x7136;&#x540E;&#x91CD;&#x5EFA;coredns&#x7684;pod&#x5373;&#x53EF;&#x3002;</p>
+<p><img src="image/Snipaste_2021-10-20_23-54-38.JPG" alt="upload-image"></p>
+<p><img src="image/Snipaste_2021-10-20_23-54-49.JPG" alt="upload-image"></p>
 <p><footer class="page-footer"><span class="copyright">&#xA9; vishon all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at
-2021-10-20 23:34:42
+2021-10-20 23:55:31
 </span></footer></p>
 <div id="gitalk-container"></div>
 <script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
@@ -326,14 +330,10 @@
 
             
                 
-                <a href="../" class="navigation navigation-prev " aria-label="Previous page: 简介">
+                <a href="../linux/1.md" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 1">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="../linux/1.md" class="navigation navigation-next " aria-label="Next page: 1">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -342,7 +342,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"1.pod采用组件挂载cfs报错","level":"2.1","depth":1,"next":{"title":"1","level":"3.1","depth":1,"path":"linux/1.md","ref":"linux/1.md","articles":[]},"previous":{"title":"简介","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","editlink","-lunr","-search","search-plus","tbfed-pagefooter","splitter","page-toc-button","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","3-ba","theme-default","pageview-count","auto-scroll-table","popup","code","mygitalk"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"&copy vishon","modify_label":"Updated at","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"shortName":"nieweixing-github-io"},"github":{"url":"https://github.com/nieweixing"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/nieweixing/question/tree/gh-pages"},"splitter":{},"auto-scroll-table":{},"popup":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"pageview-count":{},"github-buttons":{"repo":"nieweixing/question","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"c03bec8e82bc53c064e0e648ffa54d88"},"mygitalk":{"flipMoveOptions":{},"clientID":"5976cd3d9cc251569467","number":-1,"perPage":10,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","admin":["nieweixing"],"createIssueManually":false,"distractionFreeMode":false,"repo":"gitalk-comment","owner":"nieweixing","enableHotKey":true,"clientSecret":"74117131a57324d4d616267265a94f4a1ac293ec","pagerDirection":"last","labels":["Gitalk"]},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_"}},"theme":"default","author":"vishon","pdf":{"pageNumbers":true,"fontSize":11,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"toc":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"运维问题集锦","language":"zh-hans","links":{"sidebar":{"聂伟星个人博客":"https://www.niewx.cn","TKE使用操作文档":"https://cloud.tencent.com/developer/column/87421","运维操作指南":"https://www.niewx.cn/mybook","运维问题集锦":"https://www.niewx.cn/question"}},"gitbook":">= 3.2.2","description":"运维问题集锦"},"file":{"path":"tke/Pod-uses-components-to-mount-cfs-to-report-errors.md","mtime":"2021-10-20T15:34:42.512Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-10-20T15:56:47.414Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"1.k8s集群内pod内无法正确解析coredns中的hosts配置","level":"4.1","depth":1,"previous":{"title":"1","level":"3.1","depth":1,"path":"linux/1.md","ref":"linux/1.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","editlink","-lunr","-search","search-plus","tbfed-pagefooter","splitter","page-toc-button","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","3-ba","theme-default","pageview-count","auto-scroll-table","popup","code","mygitalk"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"&copy vishon","modify_label":"Updated at","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"shortName":"nieweixing-github-io"},"github":{"url":"https://github.com/nieweixing"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/nieweixing/question/tree/gh-pages"},"splitter":{},"auto-scroll-table":{},"popup":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"pageview-count":{},"github-buttons":{"repo":"nieweixing/question","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"c03bec8e82bc53c064e0e648ffa54d88"},"mygitalk":{"flipMoveOptions":{},"clientID":"5976cd3d9cc251569467","number":-1,"perPage":10,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","admin":["nieweixing"],"createIssueManually":false,"distractionFreeMode":false,"repo":"gitalk-comment","owner":"nieweixing","enableHotKey":true,"clientSecret":"74117131a57324d4d616267265a94f4a1ac293ec","pagerDirection":"last","labels":["Gitalk"]},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_"}},"theme":"default","author":"vishon","pdf":{"pageNumbers":true,"fontSize":11,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"toc":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"运维问题集锦","language":"zh-hans","links":{"sidebar":{"聂伟星个人博客":"https://www.niewx.cn","TKE使用操作文档":"https://cloud.tencent.com/developer/column/87421","运维操作指南":"https://www.niewx.cn/mybook","运维问题集锦":"https://www.niewx.cn/question"}},"gitbook":">= 3.2.2","description":"运维问题集锦"},"file":{"path":"k8s/The-hosts-configuration-in-coredns-cannot-be-correctly-parsed-in-pods-in-the-k8s-cluster.md","mtime":"2021-10-20T15:55:31.617Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-10-20T15:56:47.414Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
