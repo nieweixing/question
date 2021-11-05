@@ -8,7 +8,7 @@ tke集群部署了一个nginx服务，并通过一个负载均衡类型的ingres
 
 1. 首先查看了ingress对应的clb监听后端是否正常，发现后端监听没有创建。
 
-![upload-image](image/Snipaste_2021-11-05_18-21-44.JPG) 
+![upload-image](image/Snipaste_2021-11-05_18-38-47.JPG) 
 
 2. 没有成功创建监听说明ingress同步规则到clb失败，这时候查看ingress事件是否有报错，看了下事件也没有具体报错
 
