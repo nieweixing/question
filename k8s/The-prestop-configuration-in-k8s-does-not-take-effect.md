@@ -44,6 +44,22 @@ terminationGracePeriodSeconds默认是30s，当我们的prostop配置的sleep 70
 
 其实这里只需要将terminationGracePeriodSeconds时长修改比prestop所执行的时间长即可，也就是说你的prestop需要100s执行完成，你的terminationGracePeriodSeconds设置为101s就不会出现不生效的问题。
 
+## prestop配置多行命令
 
+如何你的prestop想执行多条命令操作，可以参考下面配置
+
+```
+        imagePullPolicy: IfNotPresent
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - /bin/bash
+              - '-c'
+              - |-
+                curl http://www.baidu.com
+                sleep 70
+                curl http://www.qq.com
+```
 
 
