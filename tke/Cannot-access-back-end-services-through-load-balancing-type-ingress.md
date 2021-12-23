@@ -12,7 +12,8 @@ tke集群部署了一个nginx服务，并通过一个负载均衡类型的ingres
 
 2. 没有成功创建监听说明ingress同步规则到clb失败，这时候查看ingress事件是否有报错，看了下事件也没有具体报错。
 
-3. 事件不能看出来，这时候再去查看下ingress-controller日志，对应的pod是部署在集群内kube-system命名空间下的l7-lb-controller这个deploy，根据ingress名称搜下日志发现有报错，从报错中基本可以看出问题所在，一般主要存在下面几种情况
+3. 事件不能看出来，这时候再去查看下ingress-controller日志，对应的pod是部署在集群内kube-system命名空间下的l7-lb-controller这个deploy，根据ingress名称搜下日志发现有报错，从报错中基本可以看出问题所在，一般主要存在下面几种情况。
+
 
 * 后端的Service类型不匹配
 
