@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>3.pod挂载nfs数据卷报错权限不足 · 运维问题集锦</title>
+        <title>7.coredns启动报错tcp:8080:bind:address already in use · 运维问题集锦</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -91,10 +91,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="The-prestop-configuration-in-k8s-does-not-take-effect.html" />
+    <link rel="next" href="../istio/Cannot-connect-to-mysql-after-pod-injects-sidecar.html" />
     
     
-    <link rel="prev" href="k8s-deploys-hostport-mode-pod-error-report.html" />
+    <link rel="prev" href="Alpine-mirror-cannot-access-redis-with-telnet.html" />
     
 
     
@@ -272,7 +272,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.3" data-path="pod-mounting-nfs-data-volume-error-report-insufficient-permissions.html">
+        <li class="chapter " data-level="3.3" data-path="pod-mounting-nfs-data-volume-error-report-insufficient-permissions.html">
             
                 <a href="pod-mounting-nfs-data-volume-error-report-insufficient-permissions.html">
             
@@ -324,7 +324,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.7" data-path="coredns-startup-error-8080-port-address-already-in-use.html">
+        <li class="chapter active" data-level="3.7" data-path="coredns-startup-error-8080-port-address-already-in-use.html">
             
                 <a href="coredns-startup-error-8080-port-address-already-in-use.html">
             
@@ -407,7 +407,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >3.pod挂载nfs数据卷报错权限不足</a>
+        <a href=".." >7.coredns启动报错tcp:8080:bind:address already in use</a>
     </h1>
 </div>
 
@@ -422,19 +422,36 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="pod&#x6302;&#x8F7D;nfs&#x6570;&#x636E;&#x5377;&#x62A5;&#x9519;&#x6743;&#x9650;&#x4E0D;&#x8DB3;">pod&#x6302;&#x8F7D;nfs&#x6570;&#x636E;&#x5377;&#x62A5;&#x9519;&#x6743;&#x9650;&#x4E0D;&#x8DB3;</h1>
-<p>k8s&#x4E2D;&#x5C06;pod&#x7684;&#x6570;&#x636E;&#x6301;&#x4E45;&#x5316;&#xFF0C;&#x5F88;&#x591A;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x4F1A;&#x7528;&#x5230;nfs&#xFF0C;&#x6700;&#x8FD1;&#x6211;&#x4EEC;&#x9047;&#x5230;&#x4E00;&#x4E2A;pod&#x6302;&#x8F7D;nfs&#x62A5;&#x9519;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5177;&#x4F53;&#x62A5;&#x9519;&#x5982;&#x4E0B;</p>
-<pre><code>MountVolume.SetUp failed for volume &quot;xxxxxxx&quot; : mount failed: exit status 32 Mounting command: mount Mounting arguments: -t nfs 10.0.0.10:/data/xxxx /var/lib/eklet-agent/pods/d43cc0d5-b294-4040-9b1b-f9672d8a54e5/volumes/kubernetes.io~nfs/xxxxx Output: Created symlink /run/systemd/system/remote-fs.target.wants/rpc-statd.service &#x2192; /usr/lib/systemd/system/rpc-statd.service. mount.nfs: Operation not permitted
-</code></pre><p>&#x4ECE;&#x62A5;&#x9519;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#x662F;&#x6743;&#x9650;&#x4E0D;&#x8DB3;&#xFF0C;&#x9996;&#x5148;&#x6211;&#x4EEC;&#x5230;nfs&#x7684;&#x670D;&#x52A1;&#x7AEF;&#xFF0C;&#x68C0;&#x67E5;&#x4E0B;&#x5BF9;&#x5E94;&#x76EE;&#x5F55;&#x7684;&#x6743;&#x9650;&#xFF0C;&#x67E5;&#x770B;&#x6302;&#x8F7D;&#x76EE;&#x5F55;&#x7684;&#x6743;&#x9650;&#x662F;/data/xxxx  *(rw)</p>
-<p>nfs&#x7684;&#x6743;&#x9650;&#x662F;&#x6240;&#x6709;&#x5BA2;&#x6237;&#x7AEF;&#x90FD;&#x53EF;&#x4EE5;&#x8BFB;&#x5199;&#x8FD9;&#x4E2A;&#x76EE;&#x5F55;&#x7684;&#xFF0C;&#x65E2;&#x7136;&#x6743;&#x9650;&#x662F;&#x8DB3;&#x591F;&#xFF0C;&#x90A3;&#x4E48;&#x4E3A;&#x4EC0;&#x4E48;&#x4F1A;&#x51FA;&#x73B0;&#x8FD9;&#x4E2A;&#x62A5;&#x9519;&#x5462;</p>
-<p>&#x901A;&#x8FC7;google&#xFF0C;&#x53D1;&#x73B0;&#x6709;&#x4EBA;&#x5BF9;&#x8FD9;&#x4E2A;&#x9519;&#x8BEF;&#x8FDB;&#x884C;&#x4E86;&#x5B9A;&#x4F4D;&#x548C;&#x8BF4;&#x660E;</p>
-<p><img src="image/Snipaste_2021-07-19_13-26-43.png" alt="upload-image"> </p>
-<p>&#x7531;&#x4E8E;pod&#x51FA;&#x53BB;&#x7684;&#x7AEF;&#x53E3;&#x662F;&#x9AD8;&#x4F4D;&#x7AEF;&#x53E3;&#xFF0C;nfs&#x9ED8;&#x8BA4;&#x662F;&#x4E0D;&#x5141;&#x8BB8;&#x9AD8;&#x4F4D;&#x7AEF;&#x53E3;&#x53BB;&#x8FDE;&#x63A5;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x52A0;&#x4E0A;insecure&#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#x7684;&#x610F;&#x601D;&#x662F;</p>
-<pre><code>insecure&#xFF1A;NFS&#x901A;&#x8FC7;1024&#x4EE5;&#x4E0A;&#x7684;&#x7AEF;&#x53E3;&#x53D1;&#x9001;
-</code></pre><p>&#x6700;&#x7EC8;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x5C31;&#x662F;&#x5728;nfs&#x7684;/etc/exports&#x6587;&#x4EF6;&#x5C06;&#x6302;&#x8F7D;&#x7684;&#x76EE;&#x5F55;&#x52A0;&#x4E0A;insecure&#x53C2;&#x6570;</p>
-<pre><code>/data/xxxx  *(rw),insecure
-</code></pre><p><footer class="page-footer"><span class="copyright">&#xA9; vishon all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at
-2021-07-19 13:31:09
+                                <h1 id="coredns&#x670D;&#x52A1;pod&#x542F;&#x52A8;&#x62A5;&#x9519;listen-tcp-8080-bind-address-already-in-use">coredns&#x670D;&#x52A1;pod&#x542F;&#x52A8;&#x62A5;&#x9519;listen tcp :8080: bind: address already in use</h1>
+<h2 id="&#x95EE;&#x9898;&#x73B0;&#x8C61;">&#x95EE;&#x9898;&#x73B0;&#x8C61;</h2>
+<p>&#x4E1A;&#x52A1;pod&#x65E0;&#x6CD5;&#x901A;&#x8FC7;&#x57DF;&#x540D;&#x8BBF;&#x95EE;&#x5916;&#x7F51;&#xFF0C;&#x5728;pod&#x91CC;&#x9762;&#x89E3;&#x6790;&#x57DF;&#x540D;&#x4E5F;&#x5931;&#x8D25;&#xFF0C;&#x89E3;&#x6790;&#x57DF;&#x540D;&#x5931;&#x8D25;&#xFF0C;&#x5E94;&#x8BE5;&#x662F;coredns&#x670D;&#x52A1;&#x51FA;&#x73B0;&#x4E86;&#x5F02;&#x5E38;&#xFF0C;&#x68C0;&#x67E5;coredns&#x7684;pod&#xFF0C;&#x53D1;&#x73B0;coredns&#x7684;pod&#x4E00;&#x76F4;&#x5728;&#x91CD;&#x542F;&#xFF0C;kubectl logs&#x67E5;&#x770B;pod&#x65E5;&#x5FD7;&#x62A5;&#x9519;listen tcp :8080: bind: address already in use&#x3002;</p>
+<h2 id="&#x6392;&#x67E5;&#x601D;&#x8DEF;">&#x6392;&#x67E5;&#x601D;&#x8DEF;</h2>
+<p>&#x4ECE;pod&#x7684;&#x542F;&#x52A8;&#x65E5;&#x5FD7;&#x62A5;&#x9519;&#x6765;&#x770B;&#xFF0C;&#x662F;&#x7AEF;&#x53E3;&#x88AB;&#x5360;&#x7528;&#x4E86;&#xFF0C;&#x67E5;&#x770B;&#x4E86;&#x4E0B;coredns&#x7684;yaml&#xFF0C;&#x4E0D;&#x662F;hostnetwork&#x6A21;&#x5F0F;&#xFF0C;&#x6B63;&#x5E38;&#x5BB9;&#x5668;&#x91CC;&#x9762;&#x600E;&#x4E48;&#x4F1A;&#x51FA;&#x73B0;&#x76D1;&#x542C;&#x7AEF;&#x53E3;&#x88AB;&#x5360;&#x7528;&#x5462;&#x3002;&#x6000;&#x7591;&#x662F;coredns&#x7684;&#x914D;&#x7F6E;&#x54EA;&#x91CC;&#x6709;&#x95EE;&#x9898;&#xFF0C;&#x68C0;&#x67E5;&#x4E86;&#x4E0B;coredns&#x7684;configmaq&#x914D;&#x7F6E;&#xFF0C;&#x53D1;&#x73B0;&#x6709;&#x5728;corefile&#x91CC;&#x9762;&#x81EA;&#x5B9A;&#x4E49;&#x4E0A;&#x6E38;&#x7684;dns&#x914D;&#x7F6E;&#x3002;</p>
+<pre><code>a.com {
+    forword . 1.1.1.1 2.2.2.2
+    health 
+}
+</code></pre><p>&#x4ECE;&#x4E0A;&#x9762;&#x81EA;&#x5B9A;&#x4E49;&#x7684;coredns&#x914D;&#x7F6E;&#x770B;&#xFF0C;&#x6709;&#x52A0;&#x4E0A;health&#x8FD9;&#x4E2A;&#x63D2;&#x4EF6;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;&#x63D2;&#x4EF6;&#x9700;&#x8981;&#x600E;&#x4E48;&#x914D;&#x7F6E;&#x5462;&#xFF1F;&#x5230;&#x5B98;&#x7F51;&#x6587;&#x6863;&#x67E5;&#x4E86;&#x4E0B;<a href="https://coredns.io/plugins/health/" target="_blank">https://coredns.io/plugins/health/</a></p>
+<p>&#x53D1;&#x73B0;&#x6587;&#x6863;&#x91CC;&#x9762;&#x6709;&#x8FD9;&#x4E2A;&#x8BF4;&#x660E;</p>
+<p>If you have multiple Server Blocks, health can only be enabled in one of them (as it is process wide). If you really need multiple endpoints, you must run health endpoints on different ports:</p>
+<pre><code>com {
+    whoami
+    health :8080
+}
+
+net {
+    erratic
+    health :8081
+}
+</code></pre><p>&#x4ECE;&#x4E0A;&#x9762;&#x7684;&#x8BF4;&#x660E;&#x770B;&#xFF0C;&#x5982;&#x679C;&#x9700;&#x8981;&#x4F7F;&#x7528;health&#x63D2;&#x4EF6;&#xFF0C;&#x9700;&#x8981;&#x6307;&#x5B9A;&#x68C0;&#x67E5;&#x7AEF;&#x53E3;&#x624D;&#x884C;&#xFF0C;&#x5426;&#x5219;&#x5C31;&#x7528;&#x9ED8;&#x8BA4;&#x7684;8080&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x7AEF;&#x53E3;&#x88AB;&#x5360;&#x7528;&#x3002;</p>
+<h2 id="&#x89E3;&#x51B3;&#x65B9;&#x6848;">&#x89E3;&#x51B3;&#x65B9;&#x6848;</h2>
+<p>&#x65E2;&#x7136;&#x77E5;&#x9053;&#x95EE;&#x9898;&#x539F;&#x56E0;&#x4E86;&#xFF0C;&#x8FD9;&#x91CC;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x6709;2&#x4E2A;</p>
+<ol>
+<li>&#x53BB;&#x6389;health&#x63D2;&#x4EF6;</li>
+<li>&#x5728;health&#x63D2;&#x4EF6;&#x68C0;&#x67E5;&#x5065;&#x5EB7;&#x68C0;&#x67E5;&#x7684;&#x7AEF;&#x53E3;&#x914D;&#x7F6E;&#xFF0C;&#x6CE8;&#x610F;&#x4E0D;&#x80FD;&#x548C;coredns&#x7684;8080&#x51B2;&#x7A81;&#x3002; </li>
+</ol>
+<p><footer class="page-footer"><span class="copyright">&#xA9; vishon all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at
+2022-02-22 11:37:23
 </span></footer></p>
 <div id="gitalk-container"></div>
 <script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
@@ -464,12 +481,12 @@
 
             
                 
-                <a href="k8s-deploys-hostport-mode-pod-error-report.html" class="navigation navigation-prev " aria-label="Previous page: 2.k8s部署hostport模式pod报错端口冲突">
+                <a href="Alpine-mirror-cannot-access-redis-with-telnet.html" class="navigation navigation-prev " aria-label="Previous page: 6.alpine镜像无法用telnet访问redis">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="The-prestop-configuration-in-k8s-does-not-take-effect.html" class="navigation navigation-next " aria-label="Next page: 4.k8s中配置prestop不生效">
+                <a href="../istio/Cannot-connect-to-mysql-after-pod-injects-sidecar.html" class="navigation navigation-next " aria-label="Next page: 1.pod注入sidecar后无法连接mysql">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -480,7 +497,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"3.pod挂载nfs数据卷报错权限不足","level":"3.3","depth":1,"next":{"title":"4.k8s中配置prestop不生效","level":"3.4","depth":1,"path":"k8s/The-prestop-configuration-in-k8s-does-not-take-effect.md","ref":"k8s/The-prestop-configuration-in-k8s-does-not-take-effect.md","articles":[]},"previous":{"title":"2.k8s部署hostport模式pod报错端口冲突","level":"3.2","depth":1,"path":"k8s/k8s-deploys-hostport-mode-pod-error-report.md","ref":"k8s/k8s-deploys-hostport-mode-pod-error-report.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","editlink","-lunr","-search","search-plus","tbfed-pagefooter","splitter","page-toc-button","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","3-ba","theme-default","pageview-count","auto-scroll-table","popup","code","mygitalk"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"&copy vishon","modify_label":"Updated at","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"shortName":"nieweixing-github-io"},"github":{"url":"https://github.com/nieweixing"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/nieweixing/question/tree/gh-pages"},"splitter":{},"auto-scroll-table":{},"popup":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"pageview-count":{},"github-buttons":{"repo":"nieweixing/question","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"38ee76ef601f1246b52f414029b05b42"},"mygitalk":{"flipMoveOptions":{},"clientID":"5976cd3d9cc251569467","number":-1,"perPage":10,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","admin":["nieweixing"],"createIssueManually":false,"distractionFreeMode":false,"repo":"gitalk-comment","owner":"nieweixing","enableHotKey":true,"clientSecret":"74117131a57324d4d616267265a94f4a1ac293ec","pagerDirection":"last","labels":["Gitalk"]},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_"}},"theme":"default","author":"vishon","pdf":{"pageNumbers":true,"fontSize":11,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"toc":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"运维问题集锦","language":"zh-hans","links":{"sidebar":{"聂伟星个人博客":"https://www.niewx.cn","云+社区TKE运维笔记":"https://cloud.tencent.com/developer/column/87421","运维操作宝典":"https://www.niewx.cn/mybook","运维问题集锦":"https://www.niewx.cn/question"}},"gitbook":">= 3.2.2","description":"运维问题集锦"},"file":{"path":"k8s/pod-mounting-nfs-data-volume-error-report-insufficient-permissions.md","mtime":"2021-07-19T05:31:09.662Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-22T03:37:46.047Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"7.coredns启动报错tcp:8080:bind:address already in use","level":"3.7","depth":1,"next":{"title":"1.pod注入sidecar后无法连接mysql","level":"4.1","depth":1,"path":"istio/Cannot-connect-to-mysql-after-pod-injects-sidecar.md","ref":"istio/Cannot-connect-to-mysql-after-pod-injects-sidecar.md","articles":[]},"previous":{"title":"6.alpine镜像无法用telnet访问redis","level":"3.6","depth":1,"path":"k8s/Alpine-mirror-cannot-access-redis-with-telnet.md","ref":"k8s/Alpine-mirror-cannot-access-redis-with-telnet.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","editlink","-lunr","-search","search-plus","tbfed-pagefooter","splitter","page-toc-button","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","3-ba","theme-default","pageview-count","auto-scroll-table","popup","code","mygitalk"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"&copy vishon","modify_label":"Updated at","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"shortName":"nieweixing-github-io"},"github":{"url":"https://github.com/nieweixing"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/nieweixing/question/tree/gh-pages"},"splitter":{},"auto-scroll-table":{},"popup":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"pageview-count":{},"github-buttons":{"repo":"nieweixing/question","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"38ee76ef601f1246b52f414029b05b42"},"mygitalk":{"flipMoveOptions":{},"clientID":"5976cd3d9cc251569467","number":-1,"perPage":10,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","admin":["nieweixing"],"createIssueManually":false,"distractionFreeMode":false,"repo":"gitalk-comment","owner":"nieweixing","enableHotKey":true,"clientSecret":"74117131a57324d4d616267265a94f4a1ac293ec","pagerDirection":"last","labels":["Gitalk"]},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_"}},"theme":"default","author":"vishon","pdf":{"pageNumbers":true,"fontSize":11,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"toc":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"运维问题集锦","language":"zh-hans","links":{"sidebar":{"聂伟星个人博客":"https://www.niewx.cn","云+社区TKE运维笔记":"https://cloud.tencent.com/developer/column/87421","运维操作宝典":"https://www.niewx.cn/mybook","运维问题集锦":"https://www.niewx.cn/question"}},"gitbook":">= 3.2.2","description":"运维问题集锦"},"file":{"path":"k8s/coredns-startup-error-8080-port-address-already-in-use.md","mtime":"2022-02-22T03:37:23.342Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-22T03:37:46.047Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
