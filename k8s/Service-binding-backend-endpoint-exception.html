@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>7.coredns启动报错tcp:8080:bind:address already in use · 运维问题集锦</title>
+        <title>8.service绑定后端endpoint异常 · 运维问题集锦</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -91,10 +91,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="Service-binding-backend-endpoint-exception.html" />
+    <link rel="next" href="../istio/Cannot-connect-to-mysql-after-pod-injects-sidecar.html" />
     
     
-    <link rel="prev" href="Alpine-mirror-cannot-access-redis-with-telnet.html" />
+    <link rel="prev" href="coredns-startup-error-8080-port-address-already-in-use.html" />
     
 
     
@@ -324,7 +324,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.7" data-path="coredns-startup-error-8080-port-address-already-in-use.html">
+        <li class="chapter " data-level="3.7" data-path="coredns-startup-error-8080-port-address-already-in-use.html">
             
                 <a href="coredns-startup-error-8080-port-address-already-in-use.html">
             
@@ -337,7 +337,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.8" data-path="Service-binding-backend-endpoint-exception.html">
+        <li class="chapter active" data-level="3.8" data-path="Service-binding-backend-endpoint-exception.html">
             
                 <a href="Service-binding-backend-endpoint-exception.html">
             
@@ -420,7 +420,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >7.coredns启动报错tcp:8080:bind:address already in use</a>
+        <a href=".." >8.service绑定后端endpoint异常</a>
     </h1>
 </div>
 
@@ -435,36 +435,139 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="coredns&#x670D;&#x52A1;pod&#x542F;&#x52A8;&#x62A5;&#x9519;listen-tcp-8080-bind-address-already-in-use">coredns&#x670D;&#x52A1;pod&#x542F;&#x52A8;&#x62A5;&#x9519;listen tcp :8080: bind: address already in use</h1>
+                                <h1 id="service&#x7ED1;&#x5B9A;&#x540E;&#x7AEF;endpoint&#x5F02;&#x5E38;">service&#x7ED1;&#x5B9A;&#x540E;&#x7AEF;endpoint&#x5F02;&#x5E38;</h1>
 <h2 id="&#x95EE;&#x9898;&#x73B0;&#x8C61;">&#x95EE;&#x9898;&#x73B0;&#x8C61;</h2>
-<p>&#x4E1A;&#x52A1;pod&#x65E0;&#x6CD5;&#x901A;&#x8FC7;&#x57DF;&#x540D;&#x8BBF;&#x95EE;&#x5916;&#x7F51;&#xFF0C;&#x5728;pod&#x91CC;&#x9762;&#x89E3;&#x6790;&#x57DF;&#x540D;&#x4E5F;&#x5931;&#x8D25;&#xFF0C;&#x89E3;&#x6790;&#x57DF;&#x540D;&#x5931;&#x8D25;&#xFF0C;&#x5E94;&#x8BE5;&#x662F;coredns&#x670D;&#x52A1;&#x51FA;&#x73B0;&#x4E86;&#x5F02;&#x5E38;&#xFF0C;&#x68C0;&#x67E5;coredns&#x7684;pod&#xFF0C;&#x53D1;&#x73B0;coredns&#x7684;pod&#x4E00;&#x76F4;&#x5728;&#x91CD;&#x542F;&#xFF0C;kubectl logs&#x67E5;&#x770B;pod&#x65E5;&#x5FD7;&#x62A5;&#x9519;listen tcp :8080: bind: address already in use&#x3002;</p>
+<p>&#x95EE;&#x9898;&#x73B0;&#x8C61;&#x662F;k8s&#x96C6;&#x7FA4;&#x5185;&#x901A;&#x8FC7;service&#x8BBF;&#x95EE;&#x67D0;&#x4E2A;&#x670D;&#x52A1;&#x62A5;&#x9519;no healthy upsteam&#xFF0C;&#x8FD9;&#x91CC;&#x6211;&#x7528;&#x4E00;&#x4E2A;nginx&#x670D;&#x52A1;&#x6765;&#x8BB2;&#x4E0B;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;</p>
 <h2 id="&#x6392;&#x67E5;&#x601D;&#x8DEF;">&#x6392;&#x67E5;&#x601D;&#x8DEF;</h2>
-<p>&#x4ECE;pod&#x7684;&#x542F;&#x52A8;&#x65E5;&#x5FD7;&#x62A5;&#x9519;&#x6765;&#x770B;&#xFF0C;&#x662F;&#x7AEF;&#x53E3;&#x88AB;&#x5360;&#x7528;&#x4E86;&#xFF0C;&#x67E5;&#x770B;&#x4E86;&#x4E0B;coredns&#x7684;yaml&#xFF0C;&#x4E0D;&#x662F;hostnetwork&#x6A21;&#x5F0F;&#xFF0C;&#x6B63;&#x5E38;&#x5BB9;&#x5668;&#x91CC;&#x9762;&#x600E;&#x4E48;&#x4F1A;&#x51FA;&#x73B0;&#x76D1;&#x542C;&#x7AEF;&#x53E3;&#x88AB;&#x5360;&#x7528;&#x5462;&#x3002;&#x6000;&#x7591;&#x662F;coredns&#x7684;&#x914D;&#x7F6E;&#x54EA;&#x91CC;&#x6709;&#x95EE;&#x9898;&#xFF0C;&#x68C0;&#x67E5;&#x4E86;&#x4E0B;coredns&#x7684;configmaq&#x914D;&#x7F6E;&#xFF0C;&#x53D1;&#x73B0;&#x6709;&#x5728;corefile&#x91CC;&#x9762;&#x81EA;&#x5B9A;&#x4E49;&#x4E0A;&#x6E38;&#x7684;dns&#x914D;&#x7F6E;&#x3002;</p>
-<pre><code>a.com {
-    forword . 1.1.1.1 2.2.2.2
-    health 
-}
-</code></pre><p>&#x4ECE;&#x4E0A;&#x9762;&#x81EA;&#x5B9A;&#x4E49;&#x7684;coredns&#x914D;&#x7F6E;&#x770B;&#xFF0C;&#x6709;&#x52A0;&#x4E0A;health&#x8FD9;&#x4E2A;&#x63D2;&#x4EF6;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;&#x63D2;&#x4EF6;&#x9700;&#x8981;&#x600E;&#x4E48;&#x914D;&#x7F6E;&#x5462;&#xFF1F;&#x5230;&#x5B98;&#x7F51;&#x6587;&#x6863;&#x67E5;&#x4E86;&#x4E0B;<a href="https://coredns.io/plugins/health/" target="_blank">https://coredns.io/plugins/health/</a></p>
-<p>&#x53D1;&#x73B0;&#x6587;&#x6863;&#x91CC;&#x9762;&#x6709;&#x8FD9;&#x4E2A;&#x8BF4;&#x660E;</p>
-<p>If you have multiple Server Blocks, health can only be enabled in one of them (as it is process wide). If you really need multiple endpoints, you must run health endpoints on different ports:</p>
-<pre><code>com {
-    whoami
-    health :8080
-}
+<p>nginx&#x7684;deploy&#x548C;svc&#x5BF9;&#x5E94;&#x7684;yaml&#x5982;&#x4E0B;</p>
+<pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    k8s-app: nginx
+    qcloud-app: nginx
+  name: nginx
+  namespace: weixnie
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      k8s-app: nginx
+      qcloud-app: nginx
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        k8s-app: nginx
+        qcloud-app: nginx
+    spec:
+      containers:
+      - image: nginx:latest
+        imagePullPolicy: Always
+        name: nginx
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1Gi
+        securityContext:
+          privileged: false
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: qcloudregistrykey
+      restartPolicy: Always
 
-net {
-    erratic
-    health :8081
-}
-</code></pre><p>&#x4ECE;&#x4E0A;&#x9762;&#x7684;&#x8BF4;&#x660E;&#x770B;&#xFF0C;&#x5982;&#x679C;&#x9700;&#x8981;&#x4F7F;&#x7528;health&#x63D2;&#x4EF6;&#xFF0C;&#x9700;&#x8981;&#x6307;&#x5B9A;&#x68C0;&#x67E5;&#x7AEF;&#x53E3;&#x624D;&#x884C;&#xFF0C;&#x5426;&#x5219;&#x5C31;&#x7528;&#x9ED8;&#x8BA4;&#x7684;8080&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x7AEF;&#x53E3;&#x88AB;&#x5360;&#x7528;&#x3002;</p>
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    k8s-app: nginx
+    qcloud-app: nginx
+  name: nginx-test
+  namespace: weixnie
+spec:
+  ports:
+  - name: 80-80-tcp
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    k8s-app: nginx
+    qcloud-app: nginx
+  sessionAffinity: None
+  type: ClusterIP
+</code></pre><p>&#x8FD9;&#x91CC;apply&#x540E;&#xFF0C;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x901A;&#x8FC7;svc&#x8BBF;&#x95EE;&#x4E0B;nginx </p>
+<pre><code>[root@VM-55-5-tlinux ~]$ k get svc,pod -o wide  | grep nginx
+service/nginx-test                       ClusterIP      10.55.255.43    &lt;none&gt;        80/TCP                                                                    7m46s   k8s-app=nginx,qcloud-app=nginx
+pod/nginx-6ccd9d7969-f4rfj            1/1     Running   1          16d   10.55.1.34    172.16.55.5    &lt;none&gt;           &lt;none&gt;
+
+[root@VM-55-5-tlinux ~]# curl 10.55.255.43
+no healthy upsteam
+</code></pre><p>&#x62A5;&#x9519;&#x8FD4;&#x56DE;&#x7684;&#x662F;no healthy upsteam&#xFF0C;&#x90A3;&#x540E;&#x7AEF;&#x7684;pod&#x670D;&#x52A1;&#x662F;&#x5426;&#x6B63;&#x5E38;&#xFF0C;&#x76F4;&#x63A5;&#x8BBF;&#x95EE;pod&#x770B;&#x770B;</p>
+<pre><code>[root@VM-55-5-tlinux ~]# curl 10.55.1.34
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+&lt;style&gt;
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+&lt;p&gt;If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.&lt;/p&gt;
+
+&lt;p&gt;For online documentation and support please refer to
+&lt;a href=&quot;http://nginx.org/&quot;&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+Commercial support is available at
+&lt;a href=&quot;http://nginx.com/&quot;&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>&#x76F4;&#x63A5;pod&#x6B63;&#x5E38;&#xFF0C;&#x8BF4;&#x660E;pod&#x672C;&#x8EAB;&#x662F;&#x6B63;&#x5E38;&#x7684;&#xFF0C;&#x95EE;&#x9898;&#x662F;&#x51FA;&#x5728;svc&#x7684;&#x8F6C;&#x53D1;&#x4E0A;&#xFF0C;&#x8FD9;&#x91CC;&#x5148;describe svc&#x770B;&#x4E0B;</p>
+<pre><code>[root@VM-55-5-tlinux ~]$ k describe svc nginx-test
+Name:              nginx-test
+Namespace:         weixnie
+Labels:            k8s-app=nginx
+                   qcloud-app=nginx
+Annotations:       &lt;none&gt;
+Selector:          k8s-app=nginx,qcloud-app=nginx
+Type:              ClusterIP
+IP:                10.55.255.43
+Port:              80-80-tcp  80/TCP
+TargetPort:        http/TCP
+Endpoints:         &lt;none&gt;
+Session Affinity:  None
+Events:
+  Type    Reason                Age   From                Message
+  ----    ------                ----  ----                -------
+  Normal  EnsuringService       11m   service-controller  Deleted Loadbalancer
+  Normal  EnsureServiceSuccess  11m   service-controller  Service Sync Success. RetrunCode: S2000
+</code></pre><p>&#x4ECE;describe&#x7684;&#x4FE1;&#x606F;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#xFF0C;Endpoints&#x662F;&#x7A7A;&#x7684;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;svc&#x6CA1;&#x7ED1;&#x5B9A;&#x6210;&#x529F;&#x5230;endpoint&#x5462;&#xFF1F;&#x8FD9;&#x91CC;&#x7AEF;&#x53E3;&#x8BBE;&#x7F6E;&#x6CA1;&#x95EE;&#x9898;&#xFF0C;Selector&#x7684;label&#x548C;pod&#x4E5F;&#x662F;&#x80FD;&#x5339;&#x914D;&#x4E0A;&#x7684;&#x3002;</p>
+<p>&#x8FD9;&#x91CC;&#x53C8;&#x4ED4;&#x7EC6;&#x7684;&#x770B;&#x4E86;&#x4E0B;svc&#x7684;yaml&#x914D;&#x7F6E;&#xFF0C;&#x53D1;&#x73B0;TargetPort&#x662F;&#x7528;&#x7684;http&#x8FD9;&#x4E2A;&#x540D;&#x79F0;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x5199;&#x7684;&#x7AEF;&#x53E3;&#xFF0C;&#x7FFB;&#x4E86;&#x4E0B;&#x5B98;&#x7F51;&#x6587;&#x6863;</p>
+<p><img src="image/Snipaste_2022-04-24_20-48-52.jpg" alt="upload-image"> </p>
+<p>&#x4ECE;&#x6587;&#x6863;&#x8BF4;&#x660E;&#x6765;&#x770B;&#xFF0C;&#x5982;&#x679C;svc&#x7684;TargetPort&#x914D;&#x7F6E;&#x6210;&#x975E;&#x7AEF;&#x53E3;&#xFF0C;&#x7528;&#x540D;&#x79F0;&#xFF0C;&#x9700;&#x8981;&#x5148;&#x5728;deploy&#x91CC;&#x9762;&#x5B9A;&#x4E49;&#x624D;&#x884C;&#xFF0C;&#x8FD9;&#x91CC;deploy&#x662F;&#x6CA1;&#x6709;&#x5B9A;&#x4E49;&#x8FD9;&#x4E2A;&#x7AEF;&#x53E3;&#x540D;&#x79F0;&#x7684;&#xFF0C;&#x6240;&#x4EE5;svc&#x914D;&#x7F6E;&#x6210;&#x540D;&#x79F0;&#xFF0C;&#x5BFC;&#x81F4;svc&#x65E0;&#x6CD5;&#x6B63;&#x786E;&#x9009;&#x62E9;&#x540E;&#x7AEF;endpoint&#x3002;</p>
 <h2 id="&#x89E3;&#x51B3;&#x65B9;&#x6848;">&#x89E3;&#x51B3;&#x65B9;&#x6848;</h2>
-<p>&#x65E2;&#x7136;&#x77E5;&#x9053;&#x95EE;&#x9898;&#x539F;&#x56E0;&#x4E86;&#xFF0C;&#x8FD9;&#x91CC;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x6709;2&#x4E2A;</p>
+<p>&#x4E0A;&#x9762;&#x5206;&#x6790;&#x4E86;&#xFF0C;svc&#x6CA1;&#x7ED1;&#x5B9A;&#x540E;&#x7AEF;endpoint&#x662F;&#x4EE5;&#x4E3A;TargetPort&#x8BBE;&#x7F6E;&#x6210;&#x4E86;&#x540D;&#x79F0;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x91CC;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x5C31;&#x6709;2&#x4E2A;</p>
 <ol>
-<li>&#x53BB;&#x6389;health&#x63D2;&#x4EF6;</li>
-<li>&#x5728;health&#x63D2;&#x4EF6;&#x68C0;&#x67E5;&#x5065;&#x5EB7;&#x68C0;&#x67E5;&#x7684;&#x7AEF;&#x53E3;&#x914D;&#x7F6E;&#xFF0C;&#x6CE8;&#x610F;&#x4E0D;&#x80FD;&#x548C;coredns&#x7684;8080&#x51B2;&#x7A81;&#x3002; </li>
+<li>&#x4FEE;&#x6539;svc&#x7684;TargetPort&#x7684;&#x914D;&#x7F6E;&#xFF0C;&#x6539;&#x6210;&#x7AEF;&#x53E3;</li>
+<li>&#x5728;deploy&#x91CC;&#x9762;&#x5B9A;&#x4E49;&#x4E0B;&#x7AEF;&#x53E3;&#x7684;&#x540D;&#x79F0;</li>
 </ol>
 <p><footer class="page-footer"><span class="copyright">&#xA9; vishon all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at
-2022-02-22 11:37:23
+2022-04-24 20:53:12
 </span></footer></p>
 <div id="gitalk-container"></div>
 <script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
@@ -494,12 +597,12 @@ net {
 
             
                 
-                <a href="Alpine-mirror-cannot-access-redis-with-telnet.html" class="navigation navigation-prev " aria-label="Previous page: 6.alpine镜像无法用telnet访问redis">
+                <a href="coredns-startup-error-8080-port-address-already-in-use.html" class="navigation navigation-prev " aria-label="Previous page: 7.coredns启动报错tcp:8080:bind:address already in use">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="Service-binding-backend-endpoint-exception.html" class="navigation navigation-next " aria-label="Next page: 8.service绑定后端endpoint异常">
+                <a href="../istio/Cannot-connect-to-mysql-after-pod-injects-sidecar.html" class="navigation navigation-next " aria-label="Next page: 1.pod注入sidecar后无法连接mysql">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -510,7 +613,7 @@ net {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"7.coredns启动报错tcp:8080:bind:address already in use","level":"3.7","depth":1,"next":{"title":"8.service绑定后端endpoint异常","level":"3.8","depth":1,"path":"k8s/Service-binding-backend-endpoint-exception.md","ref":"k8s/Service-binding-backend-endpoint-exception.md","articles":[]},"previous":{"title":"6.alpine镜像无法用telnet访问redis","level":"3.6","depth":1,"path":"k8s/Alpine-mirror-cannot-access-redis-with-telnet.md","ref":"k8s/Alpine-mirror-cannot-access-redis-with-telnet.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","editlink","-lunr","-search","search-plus","tbfed-pagefooter","splitter","page-toc-button","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","3-ba","theme-default","pageview-count","auto-scroll-table","popup","code","mygitalk"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"&copy vishon","modify_label":"Updated at","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"shortName":"nieweixing-github-io"},"github":{"url":"https://github.com/nieweixing"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/nieweixing/question/tree/gh-pages"},"splitter":{},"auto-scroll-table":{},"popup":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"pageview-count":{},"github-buttons":{"repo":"nieweixing/question","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"38ee76ef601f1246b52f414029b05b42"},"mygitalk":{"flipMoveOptions":{},"clientID":"5976cd3d9cc251569467","number":-1,"perPage":10,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","admin":["nieweixing"],"createIssueManually":false,"distractionFreeMode":false,"repo":"gitalk-comment","owner":"nieweixing","enableHotKey":true,"clientSecret":"74117131a57324d4d616267265a94f4a1ac293ec","pagerDirection":"last","labels":["Gitalk"]},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_"}},"theme":"default","author":"vishon","pdf":{"pageNumbers":true,"fontSize":11,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"toc":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"运维问题集锦","language":"zh-hans","links":{"sidebar":{"聂伟星个人博客":"https://www.niewx.cn","云+社区TKE运维笔记":"https://cloud.tencent.com/developer/column/87421","运维操作宝典":"https://www.niewx.cn/mybook","运维问题集锦":"https://www.niewx.cn/question"}},"gitbook":">= 3.2.2","description":"运维问题集锦"},"file":{"path":"k8s/coredns-startup-error-8080-port-address-already-in-use.md","mtime":"2022-02-22T03:37:23.342Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-24T12:54:33.782Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"8.service绑定后端endpoint异常","level":"3.8","depth":1,"next":{"title":"1.pod注入sidecar后无法连接mysql","level":"4.1","depth":1,"path":"istio/Cannot-connect-to-mysql-after-pod-injects-sidecar.md","ref":"istio/Cannot-connect-to-mysql-after-pod-injects-sidecar.md","articles":[]},"previous":{"title":"7.coredns启动报错tcp:8080:bind:address already in use","level":"3.7","depth":1,"path":"k8s/coredns-startup-error-8080-port-address-already-in-use.md","ref":"k8s/coredns-startup-error-8080-port-address-already-in-use.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","editlink","-lunr","-search","search-plus","tbfed-pagefooter","splitter","page-toc-button","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","3-ba","theme-default","pageview-count","auto-scroll-table","popup","code","mygitalk"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"&copy vishon","modify_label":"Updated at","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"shortName":"nieweixing-github-io"},"github":{"url":"https://github.com/nieweixing"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/nieweixing/question/tree/gh-pages"},"splitter":{},"auto-scroll-table":{},"popup":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"pageview-count":{},"github-buttons":{"repo":"nieweixing/question","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"38ee76ef601f1246b52f414029b05b42"},"mygitalk":{"flipMoveOptions":{},"clientID":"5976cd3d9cc251569467","number":-1,"perPage":10,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","admin":["nieweixing"],"createIssueManually":false,"distractionFreeMode":false,"repo":"gitalk-comment","owner":"nieweixing","enableHotKey":true,"clientSecret":"74117131a57324d4d616267265a94f4a1ac293ec","pagerDirection":"last","labels":["Gitalk"]},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_"}},"theme":"default","author":"vishon","pdf":{"pageNumbers":true,"fontSize":11,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"toc":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"运维问题集锦","language":"zh-hans","links":{"sidebar":{"聂伟星个人博客":"https://www.niewx.cn","云+社区TKE运维笔记":"https://cloud.tencent.com/developer/column/87421","运维操作宝典":"https://www.niewx.cn/mybook","运维问题集锦":"https://www.niewx.cn/question"}},"gitbook":">= 3.2.2","description":"运维问题集锦"},"file":{"path":"k8s/Service-binding-backend-endpoint-exception.md","mtime":"2022-04-24T12:53:12.478Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-24T12:54:33.782Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
