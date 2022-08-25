@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>1.k8s集群内pod内无法正确解析coredns中的hosts配置 · 运维问题集锦</title>
+        <title>10.k8s通过endpoint引入外部服务访问异常 · 运维问题集锦</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -91,10 +91,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="k8s-deploys-hostport-mode-pod-error-report.html" />
+    <link rel="next" href="../istio/Cannot-connect-to-mysql-after-pod-injects-sidecar.html" />
     
     
-    <link rel="prev" href="../tke/The-pod-in-the-tke-cluster-cannot-resolve-the-service-name.html" />
+    <link rel="prev" href="StatefulSet-type-pod-domain-name-cannot-be-resolved.html" />
     
 
     
@@ -246,7 +246,7 @@
         
         
     
-        <li class="chapter active" data-level="3.1" data-path="The-hosts-configuration-in-coredns-cannot-be-correctly-parsed-in-pods-in-the-k8s-cluster.html">
+        <li class="chapter " data-level="3.1" data-path="The-hosts-configuration-in-coredns-cannot-be-correctly-parsed-in-pods-in-the-k8s-cluster.html">
             
                 <a href="The-hosts-configuration-in-coredns-cannot-be-correctly-parsed-in-pods-in-the-k8s-cluster.html">
             
@@ -363,7 +363,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.10" data-path="k8s-introduces-external-service-access-exception-through-endpoint.html">
+        <li class="chapter active" data-level="3.10" data-path="k8s-introduces-external-service-access-exception-through-endpoint.html">
             
                 <a href="k8s-introduces-external-service-access-exception-through-endpoint.html">
             
@@ -446,7 +446,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >1.k8s集群内pod内无法正确解析coredns中的hosts配置</a>
+        <a href=".." >10.k8s通过endpoint引入外部服务访问异常</a>
     </h1>
 </div>
 
@@ -461,24 +461,152 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="k8s&#x96C6;&#x7FA4;&#x5185;pod&#x5185;&#x65E0;&#x6CD5;&#x6B63;&#x786E;&#x89E3;&#x6790;coredns&#x4E2D;&#x7684;hosts&#x914D;&#x7F6E;">k8s&#x96C6;&#x7FA4;&#x5185;pod&#x5185;&#x65E0;&#x6CD5;&#x6B63;&#x786E;&#x89E3;&#x6790;coredns&#x4E2D;&#x7684;hosts&#x914D;&#x7F6E;</h1>
-<h2 id="&#x95EE;&#x9898;&#x73B0;&#x8C61;">&#x95EE;&#x9898;&#x73B0;&#x8C61;</h2>
-<p>k8s&#x7684;coredns&#x4E2D;&#x8FDB;&#x884C;&#x4E86;hosts&#x7684;&#x5168;&#x5C40;&#x57DF;&#x540D;&#x89E3;&#x6790;&#x914D;&#x7F6E;&#xFF0C;&#x4F46;&#x662F;&#x5728;&#x5BB9;&#x5668;&#x5185;&#x89E3;&#x6790;&#x5BF9;&#x5E94;&#x7684;&#x57DF;&#x540D;&#x53D1;&#x73B0;&#x8D70;&#x7684;&#x662F;k8s&#x96C6;&#x7FA4;&#x5185;&#x90E8;&#x7684;svc.cluster.local&#x57DF;&#x540D;&#xFF0C;&#x5E76;&#x6CA1;&#x6709;&#x89E3;&#x6790;&#x5230;&#x914D;&#x7F6E;&#x7684;hosts&#x4E0A;</p>
-<p><img src="image/Snipaste_2021-10-20_23-40-25.JPG" alt="upload-image"> </p>
-<p><img src="image/Snipaste_2021-10-20_23-41-35.JPG" alt="upload-image"> </p>
-<h2 id="&#x6392;&#x67E5;&#x601D;&#x8DEF;">&#x6392;&#x67E5;&#x601D;&#x8DEF;</h2>
-<p>&#x8FD9;&#x8FB9;&#x9996;&#x5148;&#x6D4B;&#x8BD5;&#x4E86;&#x4E0B;&#x5728;&#x8282;&#x70B9;&#x4E0A;&#x914D;&#x7F6E;&#x4E86;hosts&#x662F;&#x80FD;&#x6B63;&#x5E38;&#x89E3;&#x6790;&#xFF0C;&#x5E76;&#x4E14;&#x5C06;pod&#x7684;dns&#x7B56;&#x7565;&#x6539;&#x6210;default&#x4E0D;&#x8D70;coredns&#x4E5F;&#x662F;&#x80FD;&#x6B63;&#x5E38;&#x89E3;&#x6790;&#xFF0C;&#x90A3;&#x4E48;&#x4E3A;&#x4EC0;&#x4E48;&#x7ECF;&#x8FC7;coredns&#x5C31;&#x4E0D;&#x884C;&#x4E86;&#x5462;&#xFF1F;&#x8FD9;&#x91CC;&#x770B;&#x4E86;&#x4E0B;coredns&#x4E2D;&#x914D;&#x7F6E;hosts&#x7684;&#x65B9;&#x5F0F;&#x4E5F;&#x6CA1;&#x6709;&#x95EE;&#x9898;&#x3002;</p>
-<p>&#x8FD9;&#x91CC;&#x67E5;&#x770B;&#x4E86;&#x4E0B;coredns&#x7684;&#x5B98;&#x65B9;&#x6587;&#x6863;hosts&#x914D;&#x7F6E;<a href="https://coredns.io/plugins/hosts/#description" target="_blank">https://coredns.io/plugins/hosts/#description</a>&#xFF0C;&#x53D1;&#x73B0;&#x6211;&#x914D;&#x7F6E;&#x7684;hosts&#x63D2;&#x4EF6;&#x4E2D;&#x6CA1;&#x6709;&#x8BBE;&#x7F6E;fallthrough&#x8FD9;&#x4E2A;&#x5B57;&#x6BB5;&#xFF0C;&#x6839;&#x636E;&#x6587;&#x6863;&#x7684;&#x8BF4;&#x660E;</p>
-<p>fallthrough If zone matches and no record can be generated, pass request to the next plugin. If [ZONES&#x2026;] is omitted, then fallthrough happens for all zones for which the plugin is authoritative. If specific zones are listed (for example and ), then only queries for those zones will be subject to fallthrough.in-addr.arpaip6.arpa</p>
-<p>&#x5982;&#x679C;&#x533A;&#x57DF;&#x5339;&#x914D;&#x5E76;&#x4E14;&#x65E0;&#x6CD5;&#x751F;&#x6210;&#x8BB0;&#x5F55;&#xFF0C;fallthrough&#x5219;&#x5C06;&#x8BF7;&#x6C42;&#x4F20;&#x9012;&#x7ED9;&#x4E0B;&#x4E00;&#x4E2A;&#x63D2;&#x4EF6;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x8BBE;&#x7F6E;&#xFF0C;&#x5219;&#x4E0D;&#x4F1A;&#x7EE7;&#x7EED;&#x627E;&#x5176;&#x4ED6;&#x63D2;&#x4EF6;&#x8FDB;&#x884C;&#x89E3;&#x6790;&#x3002;</p>
-<p>If you want to pass the request to the rest of the plugin chain if there is no match in the hosts plugin, you must specify the option.fallthrough</p>
-<p>&#x5982;&#x679C;&#x5728;hosts&#x63D2;&#x4EF6;&#x4E2D;&#x6CA1;&#x6709;&#x5339;&#x914D;&#x9879;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x8981;&#x5C06;&#x8BF7;&#x6C42;&#x4F20;&#x9012;&#x7ED9;&#x63D2;&#x4EF6;&#x94FE;&#x7684;&#x5176;&#x4F59;&#x90E8;&#x5206;&#xFF0C;&#x5219;&#x5FC5;&#x987B;&#x6307;&#x5B9A;fallthrough&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x5927;&#x6982;&#x5C31;&#x662F;fallthrough&#x6CA1;&#x6709;&#x8BBE;&#x7F6E;&#x5BFC;&#x81F4;&#x7684;&#x3002;</p>
-<h2 id="&#x89E3;&#x51B3;&#x65B9;&#x6848;">&#x89E3;&#x51B3;&#x65B9;&#x6848;</h2>
-<p>coredns&#x7684;hosts&#x63D2;&#x4EF6;&#x4E2D;&#x52A0;&#x4E0A;fallthrough&#x914D;&#x7F6E;&#xFF0C;&#x7136;&#x540E;&#x91CD;&#x5EFA;coredns&#x7684;pod&#x5373;&#x53EF;&#x3002;</p>
-<p><img src="image/Snipaste_2021-10-20_23-54-38.JPG" alt="upload-image"></p>
-<p><img src="image/Snipaste_2021-10-20_23-54-49.JPG" alt="upload-image"></p>
+                                <h1 id="k8s&#x901A;&#x8FC7;endpoint&#x5F15;&#x5165;&#x5916;&#x90E8;&#x670D;&#x52A1;&#x8BBF;&#x95EE;&#x5F02;&#x5E38;">k8s&#x901A;&#x8FC7;endpoint&#x5F15;&#x5165;&#x5916;&#x90E8;&#x670D;&#x52A1;&#x8BBF;&#x95EE;&#x5F02;&#x5E38;</h1>
+<h2 id="&#x624B;&#x52A8;&#x521B;&#x5EFA;endpoint&#x548C;svc&#x5F15;&#x5165;&#x96C6;&#x7FA4;&#x5916;&#x7684;nginx&#x670D;&#x52A1;">&#x624B;&#x52A8;&#x521B;&#x5EFA;endpoint&#x548C;svc&#x5F15;&#x5165;&#x96C6;&#x7FA4;&#x5916;&#x7684;nginx&#x670D;&#x52A1;</h2>
+<p>&#x9996;&#x5148;&#x901A;&#x8FC7;yaml&#x5728;&#x96C6;&#x7FA4;&#x521B;&#x5EFA;ep&#x548C;svc</p>
+<pre><code>kind: Endpoints
+apiVersion: v1
+metadata:
+  # &#x6B64;&#x5904; metadata.name &#x7684;&#x503C;&#x8981;&#x548C; service &#x4E2D;&#x7684; metadata.name &#x7684;&#x503C;&#x4FDD;&#x6301;&#x4E00;&#x81F4;
+  # endpoint &#x7684;&#x540D;&#x79F0;&#x5FC5;&#x987B;&#x548C;&#x670D;&#x52A1;&#x7684;&#x540D;&#x79F0;&#x76F8;&#x5339;&#x914D;
+  name: out-of-cluster-nginx
+  namespace: weixnie
+subsets:
+  - addresses:
+      # &#x670D;&#x52A1;&#x5C06;&#x8FDE;&#x63A5;&#x91CD;&#x5B9A;&#x5411;&#x5230; endpoint &#x7684; IP &#x5730;&#x5740;
+      - ip: 172.16.0.4
+    ports:
+      # &#x5916;&#x90E8;&#x670D;&#x52A1;&#x7AEF;&#x53E3;
+      # endpoint &#x7684;&#x76EE;&#x6807;&#x7AEF;&#x53E3;
+      - port: 8081
+        name: http-8081
+---
+apiVersion: v1
+kind: Service
+metadata:
+  # &#x6B64;&#x5904; metadata.name &#x7684;&#x503C;&#x8981;&#x548C; endpoints &#x4E2D;&#x7684; metadata.name &#x7684;&#x503C;&#x4FDD;&#x6301;&#x4E00;&#x81F4;
+  name: out-of-cluster-nginx
+  # &#x5916;&#x90E8;&#x670D;&#x52A1;&#x670D;&#x52A1;&#x7EDF;&#x4E00;&#x5728;&#x56FA;&#x5B9A;&#x7684;&#x540D;&#x79F0;&#x7A7A;&#x95F4;&#x4E2D;
+  namespace: weixnie
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+      name: tcp-8081
+</code></pre><h1 id="&#x6D4B;&#x8BD5;&#x96C6;&#x7FA4;&#x5185;&#x901A;&#x8FC7;svc&#x8BBF;&#x95EE;&#x670D;&#x52A1;">&#x6D4B;&#x8BD5;&#x96C6;&#x7FA4;&#x5185;&#x901A;&#x8FC7;svc&#x8BBF;&#x95EE;&#x670D;&#x52A1;</h1>
+<pre><code>bash-5.1# kubectl get svc out-of-cluster-nginx -n weixnie
+NAME                   TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+out-of-cluster-nginx   NodePort   10.55.253.167   &lt;none&gt;        8081:30128/TCP   62s
+bash-5.1# curl 10.55.253.167:8081
+curl: (7) Failed to connect to 10.55.253.167 port 8081: Connection refused
+bash-5.1#
+</code></pre><p>&#x8FD9;&#x91CC;svc&#x7684;clusterip&#x662F;10.55.253.167&#xFF0C;&#x4F46;&#x662F;&#x901A;&#x8FC7;ip&#x5374;&#x8FDE;&#x4E0D;&#x4E0A;nginx&#xFF0C;&#x8FD9;&#x662F;&#x4E3A;&#x4EC0;&#x4E48;&#x5462;&#xFF1F;</p>
+<p>&#x8FD9;&#x91CC;&#x786E;&#x8BA4;&#x4E0B;nginx&#x670D;&#x52A1;&#x672C;&#x8EAB;&#x662F;&#x5426;&#x6B63;&#x5E38;&#xFF0C;&#x76F4;&#x63A5;&#x8BBF;&#x95EE;&#x96C6;&#x7FA4;&#x5916;nginx&#x662F;&#x6B63;&#x5E38;&#x7684;</p>
+<pre><code>bash-5.1# curl 172.16.0.4:8081
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+&lt;style&gt;
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+&lt;p&gt;If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.&lt;/p&gt;
+
+&lt;p&gt;For online documentation and support please refer to
+&lt;a href=&quot;http://nginx.org/&quot;&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+Commercial support is available at
+&lt;a href=&quot;http://nginx.com/&quot;&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h2 id="&#x95EE;&#x9898;&#x5206;&#x6790;">&#x95EE;&#x9898;&#x5206;&#x6790;</h2>
+<p>nginx&#x670D;&#x52A1;&#x662F;&#x6B63;&#x5E38;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x901A;&#x8FC7;svc&#x8BBF;&#x95EE;&#x5C31;&#x4E0D;&#x884C;&#xFF0C;&#x8FD9;&#x4E2A;&#x662F;&#x4E3A;&#x4EC0;&#x4E48;&#x5462;&#xFF1F;&#x8FD9;&#x91CC;&#x9996;&#x5148;&#x67E5;&#x770B;&#x4E0B;svc&#x540E;&#x7AEF;&#x7684;ep&#x662F;&#x5426;&#x6B63;&#x5E38;</p>
+<pre><code>bash-5.1# kubectl describe svc out-of-cluster-nginx -n weixnie
+Name:                     out-of-cluster-nginx
+Namespace:                weixnie
+Labels:                   &lt;none&gt;
+Annotations:              &lt;none&gt;
+Selector:                 &lt;none&gt;
+Type:                     NodePort
+IP Families:              &lt;none&gt;
+IP:                       10.55.253.167
+IPs:                      10.55.253.167
+Port:                     tcp-8081  8081/TCP
+TargetPort:               8081/TCP
+NodePort:                 tcp-8081  30128/TCP
+Endpoints:                
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:
+  Type    Reason                Age    From                Message
+  ----    ------                ----   ----                -------
+  Normal  EnsuringService       3m19s  service-controller  Deleted Loadbalancer
+  Normal  EnsureServiceSuccess  3m19s  service-controller  Service Sync Success. RetrunCode: S2000
+</code></pre><p>&#x53EF;&#x4EE5;&#x53D1;&#x4E0B;svc&#x7684;&#x540E;&#x7AEF;ep&#x662F;&#x7A7A;&#x7684;&#xFF0C;&#x4E3A;&#x4EC0;&#x4E48;&#x662F;&#x7A7A;&#x7684;&#xFF0C;&#x662F;&#x4E0D;&#x662F;ep&#x5173;&#x8054;svc&#x6709;&#x95EE;&#x9898;&#xFF0C;&#x8FD9;&#x91CC;&#x68C0;&#x67E5;&#x4E0B;yaml&#xFF0C;&#x540D;&#x79F0;&#x662F;&#x4E00;&#x81F4;&#x7684;&#xFF0C;&#x7AEF;&#x53E3;&#x4E5F;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x552F;&#x4E00;&#x7684;&#x533A;&#x522B;&#x662F;port&#x7684;&#x540D;&#x79F0;&#x4E0D;&#x4E00;&#x6837;&#xFF0C;&#x96BE;&#x9053;&#x662F;&#x8FD9;&#x4E2A;&#x5BFC;&#x81F4;&#x7684;&#xFF1F;&#x5148;&#x6211;&#x4EEC;&#x4FEE;&#x6539;&#x4E0B;svc&#x7684;port&#x540D;&#x79F0;&#x3002;</p>
+<pre><code>bash-5.1# kubectl describe svc out-of-cluster-nginx -n weixnie
+Name:                     out-of-cluster-nginx
+Namespace:                weixnie
+Labels:                   &lt;none&gt;
+Annotations:              &lt;none&gt;
+Selector:                 &lt;none&gt;
+Type:                     NodePort
+IP Families:              &lt;none&gt;
+IP:                       10.55.253.167
+IPs:                      10.55.253.167
+Port:                     http-8081  8081/TCP
+TargetPort:               8081/TCP
+NodePort:                 http-8081  30128/TCP
+Endpoints:                172.16.0.4:8081
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:
+  Type    Reason                Age    From                Message
+  ----    ------                ----   ----                -------
+  Normal  EnsuringService       9m47s  service-controller  Deleted Loadbalancer
+  Normal  EnsureServiceSuccess  9m47s  service-controller  Service Sync Success. RetrunCode: S2000
+</code></pre><p>&#x5C06;spec.port.name&#x6539;&#x6210;&#x548C;endpoint&#x4E00;&#x6837;&#x7684;&#x4E3A;http-8081&#xFF0C;&#x518D;&#x6B21;&#x67E5;&#x770B;svc&#x65F6;&#x5019;&#xFF0C;&#x540E;&#x7AEF;ep&#x5C31;&#x6709;&#x4E86;&#xFF0C;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x901A;&#x8FC7;svc&#x8BBF;&#x95EE;&#x4E0B;&#x770B;&#x770B;&#x662F;&#x5426;&#x6B63;&#x5E38;</p>
+<pre><code>bash-5.1# curl 10.55.253.167:8081
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+&lt;style&gt;
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+&lt;p&gt;If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.&lt;/p&gt;
+
+&lt;p&gt;For online documentation and support please refer to
+&lt;a href=&quot;http://nginx.org/&quot;&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+Commercial support is available at
+&lt;a href=&quot;http://nginx.com/&quot;&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>&#x901A;&#x8FC7;svc&#x4E5F;&#x8BBF;&#x95EE;&#x6B63;&#x5E38;&#x4E86;&#xFF0C;&#x770B;&#x6765;&#x95EE;&#x9898;&#x5C31;&#x662F;ep&#x7684;port&#x540D;&#x79F0;&#x548C;svc&#x540D;&#x79F0;&#x4E0D;&#x4E00;&#x6837;&#x5BFC;&#x81F4;&#x7684;</p>
+<h2 id="&#x7ED3;&#x8BBA;">&#x7ED3;&#x8BBA;</h2>
+<p>&#x5982;&#x679C;&#x662F;&#x901A;&#x8FC7;endpoint&#x5F15;&#x5165;&#x5916;&#x90E8;&#x670D;&#x52A1;&#x5230;k8s&#x96C6;&#x7FA4;&#x5185;&#xFF0C;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x4FDD;&#x8BC1;endpoint&#x548C;svc&#x4E0B;&#x9762;&#x5B57;&#x6BB5;&#x90FD;&#x4E00;&#x6837;</p>
+<ul>
+<li>metadata.name</li>
+<li>endpoint&#x7684;subsets.ports.name&#x548C;svc&#x7684;spec.port.name </li>
+</ul>
 <p><footer class="page-footer"><span class="copyright">&#xA9; vishon all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at
-2021-10-20 23:55:31
+2022-08-25 14:12:34
 </span></footer></p>
 <div id="gitalk-container"></div>
 <script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
@@ -508,12 +636,12 @@
 
             
                 
-                <a href="../tke/The-pod-in-the-tke-cluster-cannot-resolve-the-service-name.html" class="navigation navigation-prev " aria-label="Previous page: 4.tke集群内pod无法解析service name">
+                <a href="StatefulSet-type-pod-domain-name-cannot-be-resolved.html" class="navigation navigation-prev " aria-label="Previous page: 9.StatefulSet类型pod域名无法解析">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="k8s-deploys-hostport-mode-pod-error-report.html" class="navigation navigation-next " aria-label="Next page: 2.k8s部署hostport模式pod报错端口冲突">
+                <a href="../istio/Cannot-connect-to-mysql-after-pod-injects-sidecar.html" class="navigation navigation-next " aria-label="Next page: 1.pod注入sidecar后无法连接mysql">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -524,7 +652,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"1.k8s集群内pod内无法正确解析coredns中的hosts配置","level":"3.1","depth":1,"next":{"title":"2.k8s部署hostport模式pod报错端口冲突","level":"3.2","depth":1,"path":"k8s/k8s-deploys-hostport-mode-pod-error-report.md","ref":"k8s/k8s-deploys-hostport-mode-pod-error-report.md","articles":[]},"previous":{"title":"4.tke集群内pod无法解析service name","level":"2.4","depth":1,"path":"tke/The-pod-in-the-tke-cluster-cannot-resolve-the-service-name.md","ref":"tke/The-pod-in-the-tke-cluster-cannot-resolve-the-service-name.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","editlink","-lunr","-search","search-plus","tbfed-pagefooter","splitter","page-toc-button","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","3-ba","theme-default","pageview-count","auto-scroll-table","popup","code","mygitalk"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"&copy vishon","modify_label":"Updated at","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"shortName":"nieweixing-github-io"},"github":{"url":"https://github.com/nieweixing"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/nieweixing/question/tree/gh-pages"},"splitter":{},"auto-scroll-table":{},"popup":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"pageview-count":{},"github-buttons":{"repo":"nieweixing/question","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"38ee76ef601f1246b52f414029b05b42"},"mygitalk":{"flipMoveOptions":{},"clientID":"5976cd3d9cc251569467","number":-1,"perPage":10,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","admin":["nieweixing"],"createIssueManually":false,"distractionFreeMode":false,"repo":"gitalk-comment","owner":"nieweixing","enableHotKey":true,"clientSecret":"74117131a57324d4d616267265a94f4a1ac293ec","pagerDirection":"last","labels":["Gitalk"]},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_"}},"theme":"default","author":"vishon","pdf":{"pageNumbers":true,"fontSize":11,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"toc":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"运维问题集锦","language":"zh-hans","links":{"sidebar":{"聂伟星个人博客":"https://www.niewx.cn","云+社区TKE运维笔记":"https://cloud.tencent.com/developer/column/87421","运维操作宝典":"https://www.niewx.cn/mybook","运维问题集锦":"https://www.niewx.cn/question"}},"gitbook":">= 3.2.2","description":"运维问题集锦"},"file":{"path":"k8s/The-hosts-configuration-in-coredns-cannot-be-correctly-parsed-in-pods-in-the-k8s-cluster.md","mtime":"2021-10-20T15:55:31.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-08-25T06:18:07.832Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"10.k8s通过endpoint引入外部服务访问异常","level":"3.10","depth":1,"next":{"title":"1.pod注入sidecar后无法连接mysql","level":"4.1","depth":1,"path":"istio/Cannot-connect-to-mysql-after-pod-injects-sidecar.md","ref":"istio/Cannot-connect-to-mysql-after-pod-injects-sidecar.md","articles":[]},"previous":{"title":"9.StatefulSet类型pod域名无法解析","level":"3.9","depth":1,"path":"k8s/StatefulSet-type-pod-domain-name-cannot-be-resolved.md","ref":"k8s/StatefulSet-type-pod-domain-name-cannot-be-resolved.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","editlink","-lunr","-search","search-plus","tbfed-pagefooter","splitter","page-toc-button","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","3-ba","theme-default","pageview-count","auto-scroll-table","popup","code","mygitalk"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"&copy vishon","modify_label":"Updated at","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"shortName":"nieweixing-github-io"},"github":{"url":"https://github.com/nieweixing"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/nieweixing/question/tree/gh-pages"},"splitter":{},"auto-scroll-table":{},"popup":{},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"pageview-count":{},"github-buttons":{"repo":"nieweixing/question","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"38ee76ef601f1246b52f414029b05b42"},"mygitalk":{"flipMoveOptions":{},"clientID":"5976cd3d9cc251569467","number":-1,"perPage":10,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","admin":["nieweixing"],"createIssueManually":false,"distractionFreeMode":false,"repo":"gitalk-comment","owner":"nieweixing","enableHotKey":true,"clientSecret":"74117131a57324d4d616267265a94f4a1ac293ec","pagerDirection":"last","labels":["Gitalk"]},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":false,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_"}},"theme":"default","author":"vishon","pdf":{"pageNumbers":true,"fontSize":11,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"toc":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"运维问题集锦","language":"zh-hans","links":{"sidebar":{"聂伟星个人博客":"https://www.niewx.cn","云+社区TKE运维笔记":"https://cloud.tencent.com/developer/column/87421","运维操作宝典":"https://www.niewx.cn/mybook","运维问题集锦":"https://www.niewx.cn/question"}},"gitbook":">= 3.2.2","description":"运维问题集锦"},"file":{"path":"k8s/k8s-introduces-external-service-access-exception-through-endpoint.md","mtime":"2022-08-25T06:12:34.860Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-08-25T06:18:07.832Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
