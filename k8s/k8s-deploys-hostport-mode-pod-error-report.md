@@ -160,8 +160,10 @@ Events:
 
 从事件日志看，部署报错，也是报错端口没法使用，但是我们到节点查看80端口的确没有被监听，这是怎么回事呢？
 
-这里肯定是哪里配置不正常导致，我们仔细分析了下部署的yaml文件，发现hostport-test配置的hostport，但是没有配置hostNetwork，在k8s里面如果要hostport生效，需要配置hostNetwork为true才行，hostport-test没有配置hostNetwork，所以到节点上查看80端口没有被监听。
+hostport-test配置的hostport，但是没有配置hostNetwork，k8s的hostport，并不是直接在节点启动对应的监听端口，但是这里还是可以通过节点ip+端口进行访问，这是因为节点的iptables规则会将节点hostport的请求转发到pod上，所以到节点上查看80端口没有被监听，但是实际可以访问通。
 
-既然节点端口没被监听，为什么部署hostport-new这个pod时候还是会报错呢？hostport-new是有配置hostNetwork，其实从事件可以看出pod是调度失败，pod的调度是从etcd里面获取信息去判断节点是否存在相同端口的pod，也就是说当你有一个deployment存在hostport为80的字段时，Scheduler就会认为节点80端口已经被占用了，Scheduler不会实际去检查你的节点是否有这个端口的监听。
+所以hostport实际是生效的，如果你已经有pod通过hostport占用了端口，后续再配置同样的端口，则会提示端口冲突。
 
-从上面的分析，就可以看出为什么节点没有起80端口的监听，但是部署hostport会报错端口被占用的报错。
+# 参考文档
+
+https://cloud.tencent.com/developer/article/2008146
